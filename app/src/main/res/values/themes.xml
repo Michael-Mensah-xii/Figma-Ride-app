@@ -2,11 +2,12 @@
 <resources>
 
     <style name="Theme.RideApp" parent="android:Theme.Material.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/splash_background</item>
+        <item name="android:statusBarColor">@color/status_bar_colour</item>
     </style>
 
 
 
     <string name="ride_txt" />
+    <color name="status_bar_colour">#F0EAE2</color>
 </resources>
 

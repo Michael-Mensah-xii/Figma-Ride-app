@@ -13,8 +13,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicText
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -26,7 +31,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -39,18 +47,17 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Thread.sleep(2000)
+        Thread.sleep(1000)
         installSplashScreen()
         setContent {
             RideApp()
-            MyBottomNavigation()
         }
 
 
     }
 }
 
-// Step: Extrassection - Slot APIs
+// Step: Extrassection
 @Composable
 fun ExtrasSection(
     modifier: Modifier = Modifier,
@@ -59,7 +66,7 @@ fun ExtrasSection(
 ) {
     Column(modifier) {
         Text(
-            text = stringResource(id = R.string.Extra),// shows title in uppercase
+            text = stringResource(id = R.string.Extra),
             style = TextStyle(fontSize = 15.sp),
             // add some padding to the top of title of 40 dp and underneath title of 8dp
             modifier = Modifier
@@ -213,37 +220,68 @@ fun ExtendedButton(
     }
 }
 
+//Odd - + button
 @Composable
-fun OddButton(){
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
+fun OddButton() {
+
+    Box(
         modifier = Modifier
-            .widthIn(90.dp)
-            .heightIn()
+            .fillMaxWidth()
+            .background(MaterialTheme.colors.background)
 
     ) {
-        Text(
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
             modifier = Modifier
-                .padding(horizontal = 20.dp)
-                .weight(1f),
-            text = "Hi Kojo,",
-            style = MaterialTheme.typography.h4,
-            color = Color.White,
-        )
+                .widthIn(90.dp)
+                .heightIn(80.dp)
 
+        ) {
+            val myId = "inlineContent"
+            val text = buildAnnotatedString {
+                append("1 person")
+                // Append a placeholder string "[icon]" and attach an annotation "inlineContent" on it.
+                appendInlineContent(myId, "[icon]")
+            }
+
+            val inlineContent = mapOf(
+                Pair(
+                    myId,
+                    InlineTextContent(
+                        Placeholder(
+                            width = 20.sp,
+                            height = 20.sp,
+                            placeholderVerticalAlign = PlaceholderVerticalAlign.Center,
+
+                            )
+                    ) {
+
+
+                        Icon(Icons.Filled.Person, "")
+                    }
+                )
+            )
+
+            BasicText(
+                inlineContent = inlineContent,
+                text = text,
+                modifier = Modifier.padding(16.dp)
+            )
+
+
+        }
         Image(
-            painter = painterResource(id = R.drawable.profile_image),
-            contentDescription = "profile image",
+            painter = painterResource(id = R.drawable.light),
+            contentDescription = "plus and minus toggle",
             modifier = Modifier
-                //set image size to 40dp
-                .size(40.dp)
-                //shape image as circle
-                .clip(CircleShape)
+                .widthIn(104.dp)
+                .heightIn(32.dp)
+                .align(alignment = Alignment.CenterEnd)
+                .clip(RoundedCornerShape(10.dp))
         )
-
-        Spacer(modifier = Modifier.padding(20.dp))
     }
+
 }
 
 //Button
@@ -394,11 +432,11 @@ fun AppHeader() {
 
 //Bottom navigation
 @Composable
-private fun MyBottomNavigation() {
+private fun MyBottomNavigation(modifier: Modifier = Modifier) {
 
 
     BottomNavigation(
-        modifier = Modifier, backgroundColor = MaterialTheme.colors.background
+        modifier = modifier, backgroundColor = MaterialTheme.colors.background
     ) {
         BottomNavigationItem(
             selected = true,
@@ -460,7 +498,9 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     ) {
         AppHeader()
         ExtendedButton(title = R.string.Extendedbt)
-        Spacer(Modifier.height(50.dp))
+        Divider(thickness = 0.5.dp, color = Color.LightGray)
+        OddButton()
+        Divider(thickness = 0.5.dp, color = Color.LightGray)
         ExtrasSection(title = R.string.Extra) {
             ExtrasRow()
         }
@@ -481,6 +521,15 @@ fun RideApp() {
     }
 }
 
+
+//OddButton preview
+@Preview
+@Composable
+fun OddButtonPreview() {
+    RideAppTheme {
+        OddButton()
+    }
+}
 
 //Text Field Preview
 @Preview(showBackground = true)

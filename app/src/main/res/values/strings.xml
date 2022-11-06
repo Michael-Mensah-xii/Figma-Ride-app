@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Ride App</string>
+    <string name="Extra">Make your trip much more pleasurable.</string>
+    <string name="Breakfast" >Breakfast</string>
+    <string name="Drinks" >Drinks</string>
+    <string name="Sleeping" >Sleeping Pod</string>
+    <string name="Blanket" >Blanket</string>
+    <string name="Home">Home</string>
+    <string name="Settings">Settings</string>
+    <string name="Users">Users</string>/>
+    <string name="Tickets">Tickets</string>
+    <string name="placeholder_firsttextbox" >Where are you going?</string>
+    <string name="placeholder_secondtextbox" >Closest bus terminal</string>
+    <string name="placeholder_button" >Find times and prices</string>
+    <string name="Greeting1" >Hi Kojo,</string>
+    <string name="Today_string" >Today</string>
+    <string name="Extendedbt" >Available dates</string>
+    <string name="Tommorow_string" >Tommorow</string>
+    <string name="calender_string" />
+</resources>

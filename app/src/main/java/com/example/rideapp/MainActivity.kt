@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -61,20 +62,23 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun ExtrasSection(
     modifier: Modifier = Modifier,
-    @StringRes title: Int,
     content: @Composable () -> Unit
 ) {
-    Column(modifier) {
-        Text(
-            text = stringResource(id = R.string.Extra),
-            style = TextStyle(fontSize = 15.sp),
-            // add some padding to the top of title of 40 dp and underneath title of 8dp
-            modifier = Modifier
-                .paddingFromBaseline(top = 0.dp, bottom = 27.dp)
-                .padding(horizontal = 10.dp) //add some space between title and column
+    Box(
+        modifier = Modifier
+            .padding(start = 27.dp, end = 34.dp)
+    ) {
+        Column(modifier) {
+            Text(
+                text = stringResource(id = R.string.Extra),
+                style = TextStyle(fontSize = 15.sp),
+                // add some padding to the top of title and underneath title
+                modifier = Modifier
+                    .padding(vertical = 16.dp) //add some space between title and column
 
-        )
-        content()
+            )
+            content()
+        }
     }
 }
 
@@ -84,9 +88,9 @@ fun ExtrasRow(
     modifier: Modifier = Modifier
 ) {
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(30.dp), // spaces all items in lazyRow by 8dp
-        contentPadding = PaddingValues(horizontal = 6.dp),// this parameter ensures that padding is maintained while scrolling without clipping
-        modifier = modifier.background(MaterialTheme.colors.background),
+        horizontalArrangement = Arrangement.spacedBy(34.dp), // spaces all items in lazyRow
+        contentPadding = PaddingValues(horizontal = 8.dp),// this parameter ensures that padding is maintained while scrolling without clipping
+        modifier = modifier,
         content = {
             items(extrasData) { item ->
                 ExtrasElement(
@@ -115,22 +119,25 @@ fun ExtrasElement(
 
             contentScale = ContentScale.Crop, //crops image composable
             modifier = Modifier
-                .heightIn(10.dp)
-                .widthIn(55.dp)
-                //sets the image composable to a shape
-                .clip(RoundedCornerShape(10.dp))
-                .background(Color.Transparent)
+                .heightIn(34.dp)
+                .widthIn(34.dp)
+                //sets the image composable background
+                .paint(
+                    painter = painterResource(R.drawable.rectangle_4),
+                    contentScale = ContentScale.FillWidth
+                )
+                .padding(8.dp)
+                .size(34.dp),
 
+            )
 
-        )
         Text(
             text = stringResource(id = text),
-            style = TextStyle(fontSize = 13.sp),
+            style = TextStyle(fontSize = 10.sp, lineHeight = 14.sp),
             modifier = Modifier.paddingFromBaseline(
-                top = 24.dp, bottom = 8.dp
+                top = 12.dp, bottom = 2.dp
             )
         )
-
     }
 
 }
@@ -152,23 +159,22 @@ private data class DrawableStringPair(
 
 // Extended buttons
 @Composable
-fun ExtendedButton(
-    @StringRes title: Int
-) {
+fun ExtendedButton() {
 
     Box(
         modifier = Modifier
             .height(97.dp)
+            .widthIn(322.dp)
             .background(Color.Transparent)
             .alpha(1f)
-
-
+            .paddingFromBaseline(top = 286.dp)
+            .padding(start = 27.dp, end = 26.dp)
     ) {
         Column(
             modifier = Modifier
-                .padding(top = 0.dp, start = 10.dp)
-                .fillMaxSize()
-        ) {
+                .fillMaxSize(),
+
+            ) {
             Text(
                 text = stringResource(id = R.string.Extendedbt),
                 style = TextStyle(fontSize = 15.sp),
@@ -186,7 +192,12 @@ fun ExtendedButton(
 
                 ) {
                 ExtendedFloatingActionButton(
-                    text = { Text(text = stringResource(id = R.string.Today_string)) },
+                    text = {
+                        Text(
+                            text = stringResource(id = R.string.Today_string),
+                            fontSize = 12.sp
+                        )
+                    },
                     onClick = { /*TODO*/ },
                     modifier = Modifier.padding(bottom = 12.dp),
                     contentColor = Color.Black,
@@ -194,7 +205,24 @@ fun ExtendedButton(
                 )
 
                 ExtendedFloatingActionButton(
-                    text = { Text(text = stringResource(id = R.string.Tommorow_string)) },
+                    text = {
+                        Text(
+                            text = stringResource(id = R.string.Tommorow_string),
+                            fontSize = 12.sp
+                        )
+                    },
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier.padding(bottom = 12.dp),
+                    contentColor = Color.Black,
+                    backgroundColor = Color.White,
+                )
+                ExtendedFloatingActionButton(
+                    text = {
+                        Text(
+                            text = stringResource(id = R.string.Date_string),
+                            fontSize = 12.sp
+                        )
+                    },
                     onClick = { /*TODO*/ },
                     modifier = Modifier.padding(bottom = 12.dp),
                     contentColor = Color.Black,
@@ -202,7 +230,12 @@ fun ExtendedButton(
                 )
 
                 ExtendedFloatingActionButton(
-                    text = { Text(text = stringResource(id = R.string.calender_string)) },
+                    text = {
+                        Text(
+                            text = stringResource(id = R.string.calender_string),
+                            fontSize = 12.sp
+                        )
+                    },
                     icon = {
                         Icon(
                             painter = painterResource(id = R.drawable.calender),
@@ -226,13 +259,13 @@ fun OddButton() {
 
     Box(
         modifier = Modifier
-            .fillMaxWidth()
             .background(MaterialTheme.colors.background)
+            .padding(start = 27.dp, end = 35.dp)
 
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(134.dp),
             modifier = Modifier
                 .widthIn(90.dp)
                 .heightIn(80.dp)
@@ -266,75 +299,91 @@ fun OddButton() {
             BasicText(
                 inlineContent = inlineContent,
                 text = text,
-                modifier = Modifier.padding(16.dp)
             )
 
-
+            Image(
+                painter = painterResource(id = R.drawable.light),
+                contentDescription = "plus and minus toggle",
+                modifier = Modifier
+                    .widthIn(104.dp)
+                    .heightIn(32.dp)
+                    .clip(RoundedCornerShape(10.dp))
+            )
         }
-        Image(
-            painter = painterResource(id = R.drawable.light),
-            contentDescription = "plus and minus toggle",
-            modifier = Modifier
-                .widthIn(104.dp)
-                .heightIn(32.dp)
-                .align(alignment = Alignment.CenterEnd)
-                .clip(RoundedCornerShape(10.dp))
-        )
     }
+
 
 }
 
 //Button
 @Composable
-fun Button() {
-    Button(
-        onClick = { /*TODO*/ },
-        colors = (ButtonDefaults.buttonColors(backgroundColor = Buttonc)),
-        modifier = Modifier
-            .widthIn(1000.dp)
-            .height(150.dp)
-            .padding(start = 87.dp, top = 70.dp, end = 87.dp, bottom = 15.dp)
-            .alpha(1f)
-            .clip(
-                RoundedCornerShape(4.dp)
-            )
+fun Button(modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier.padding(start = 31.dp, top = 40.dp, end = 31.dp, bottom = 47.dp)
     ) {
-        Text(stringResource(R.string.placeholder_button), color = Color.White)
+        Button(
+            onClick = {},
+            modifier = Modifier
+                .widthIn(313.dp)
+                .heightIn(49.dp),
 
+            colors = (ButtonDefaults.buttonColors(backgroundColor = Buttonc)),
+        ) {
+            Text(
+                stringResource(R.string.placeholder_button),
+                color = Color.White,
+                fontSize = 14.sp,
+            )
+        }
     }
-
 }
+
 
 //App Header
 @Composable
 fun AppHeader() {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
+            .widthIn(375.dp)
             .heightIn(min = 270.dp)
+            .clip(
+                RoundedCornerShape(
+                    topStart = 0.dp,
+                    topEnd = 0.dp,
+                    bottomStart = 0.dp,
+                    bottomEnd = 0.dp
+                )
+            )
+
             .background(color = Green200),
-        contentAlignment = Alignment.Center
-    ) {
+        contentAlignment = Alignment.Center,
+
+        ) {
         val textState = rememberSaveable { mutableStateOf("") }
         val textState2 = rememberSaveable { mutableStateOf("") }
 
         Column(
-            modifier = Modifier.padding(start = 20.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
+            modifier = Modifier.padding(start = 31.dp, end = 48.dp),
+
+            ) {
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(31.dp),
+
                 modifier = Modifier
-                    .widthIn(90.dp)
-                    .heightIn()
+                    .widthIn(313.dp)
+                    .paddingFromBaseline(top = 62.dp, bottom = 28.dp)
+                    .padding(end = 31.dp)
+
 
             ) {
                 Text(
                     modifier = Modifier
-                        .padding(horizontal = 20.dp)
+                        .padding(horizontal = 31.dp)
+                        .padding(top = 58.dp)
                         .weight(1f),
+                    fontSize = 24.sp,
                     text = "Hi Kojo,",
                     style = MaterialTheme.typography.h4,
                     color = Color.White,
@@ -344,23 +393,30 @@ fun AppHeader() {
                     painter = painterResource(id = R.drawable.profile_image),
                     contentDescription = "profile image",
                     modifier = Modifier
+                        .padding(top = 58.dp, start = 31.dp)
                         //set image size to 40dp
                         .size(40.dp)
                         //shape image as circle
                         .clip(CircleShape)
+
                 )
 
-                Spacer(modifier = Modifier.padding(20.dp))
+
+
             }
 
             TextField(
                 value = textState.value,
                 onValueChange = { textState.value = it },
                 placeholder = {
-                    Text(stringResource(R.string.placeholder_firsttextbox), color = Color.White)
+                    Text(
+                        stringResource(R.string.placeholder_firsttextbox),
+                        color = Color.White.copy(alpha = 0.5f)
+                    )
                 },
                 modifier = Modifier
-                    .padding(horizontal = 20.dp)
+
+                    .padding(start = 16.dp, top = 14.dp, end = 16.dp, bottom = 14.dp)
                     .widthIn(296.dp)
                     .heightIn(min = 50.dp)
                     .clip(
@@ -382,31 +438,21 @@ fun AppHeader() {
 
 
             )
-
-            //Floating action button
-            FloatingActionButton(
-                onClick = { /*TODO*/ },
-                backgroundColor = Color.White,
-                modifier = Modifier
-                    .padding(start = 300.dp)
-                    .size(40.dp, 40.dp)
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.up_down_arrow),
-                    contentDescription = "bidirectional button"
-                )
-            }
 
             TextField(
                 value = textState2.value,
                 onValueChange = { textState2.value = it },
                 placeholder = {
-                    Text(stringResource(R.string.placeholder_secondtextbox), color = Color.White)
+                    Text(
+                        stringResource(R.string.placeholder_secondtextbox),
+                        color = Color.White.copy(alpha = 0.5f)
+                    )
                 },
                 modifier = Modifier
-                    .padding(horizontal = 20.dp)
+                    .padding(start = 16.dp, top = 14.dp, end = 16.dp, bottom = 14.dp)
                     .widthIn(296.dp)
                     .heightIn(min = 50.dp)
+                    .padding(bottom = 32.dp)
                     .clip(
                         RoundedCornerShape(
                             topStart = 4.dp,
@@ -414,6 +460,7 @@ fun AppHeader() {
                             bottomStart = 4.dp,
                             bottomEnd = 4.dp
                         )
+
                     )
                     .background(
                         Color(
@@ -425,7 +472,23 @@ fun AppHeader() {
                     )
 
             )
+
         }
+        //Floating action button
+        FloatingActionButton(
+            onClick = {},
+            elevation = FloatingActionButtonDefaults.elevation(20.dp),
+            backgroundColor = Color.White,
+            modifier = Modifier
+                .padding(top = 160.dp, bottom = 70.dp, start = 304.dp, end = 31.dp)
+                .size(40.dp, 40.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.up_down_arrow),
+                contentDescription = "bidirectional button"
+            )
+        }
+        /* */
     }
 
 }
@@ -435,53 +498,76 @@ fun AppHeader() {
 private fun MyBottomNavigation(modifier: Modifier = Modifier) {
 
 
-    BottomNavigation(
-        modifier = modifier, backgroundColor = MaterialTheme.colors.background
+    Row(
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier
+            .clip(
+                RoundedCornerShape(
+                    topStart = 0.dp,
+                    topEnd = 0.dp,
+                    bottomStart = 0.dp,
+                    bottomEnd = 0.dp
+                )
+            )
+
     ) {
-        BottomNavigationItem(
-            selected = true,
-            onClick = { /*TODO*/ },
-            label = { Text(stringResource(id = R.string.Home)) },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.home),
-                    contentDescription = null
-                )
-            }
-        )
-        BottomNavigationItem(
-            selected = true,
-            onClick = { /*TODO*/ },
-            label = { Text(stringResource(id = R.string.Tickets)) },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ticket),
-                    contentDescription = null
-                )
-            }
-        )
-        BottomNavigationItem(
-            selected = true,
-            onClick = { /*TODO*/ },
-            label = { Text(stringResource(id = R.string.Users)) },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.users),
-                    contentDescription = null
-                )
-            }
-        )
-        BottomNavigationItem(
-            selected = true,
-            onClick = { /*TODO*/ },
-            label = { Text(stringResource(id = R.string.Settings)) },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.settings),
-                    contentDescription = null
-                )
-            }
-        )
+        BottomNavigation(
+            modifier = modifier
+                .widthIn(375.dp)
+                .heightIn(100.dp),
+
+
+            //.padding( 40.dp,12.dp,40.dp,0.dp)
+            backgroundColor = MaterialTheme.colors.background,
+
+            ) {
+            BottomNavigationItem(modifier = Modifier.padding(bottom = 24.dp, top = 2.23.dp),
+                selected = true,
+                onClick = { /*TODO*/ },
+                label = { Text(stringResource(id = R.string.Home)) },
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.home),
+                        contentDescription = null
+                    )
+                }
+            )
+            BottomNavigationItem(modifier = Modifier.padding(bottom = 24.dp, top = 2.23.dp),
+                selected = true,
+                onClick = { /*TODO*/ },
+                label = { Text(stringResource(id = R.string.Tickets)) },
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ticket),
+                        contentDescription = null,
+
+                        )
+                }
+            )
+            BottomNavigationItem(modifier = Modifier.padding(bottom = 24.dp, top = 2.23.dp),
+                selected = true,
+                onClick = { /*TODO*/ },
+                label = { Text(stringResource(id = R.string.Users)) },
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.users),
+                        contentDescription = null
+                    )
+                }
+            )
+            BottomNavigationItem(modifier = Modifier.padding(bottom = 24.dp, top = 2.23.dp),
+                selected = true,
+                onClick = { /*TODO*/ },
+                label = { Text(stringResource(id = R.string.Settings)) },
+                icon = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.settings),
+                        contentDescription = null
+                    )
+                }
+            )
+        }
     }
 }
 
@@ -497,14 +583,14 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             .verticalScroll(rememberScrollState())
     ) {
         AppHeader()
-        ExtendedButton(title = R.string.Extendedbt)
+        Spacer(Modifier.height(16.dp))
+        ExtendedButton()
         Divider(thickness = 0.5.dp, color = Color.LightGray)
         OddButton()
         Divider(thickness = 0.5.dp, color = Color.LightGray)
-        ExtrasSection(title = R.string.Extra) {
+        ExtrasSection {
             ExtrasRow()
         }
-        Spacer(Modifier.height(20.dp))
         Button()
 
     }
@@ -545,7 +631,7 @@ fun ButtonPreview() {
 @Composable
 fun ExtendedButtonPreview() {
     RideAppTheme {
-        ExtendedButton(title = R.string.Extendedbt)
+        ExtendedButton()
     }
 }
 
@@ -554,7 +640,7 @@ fun ExtendedButtonPreview() {
 @Composable
 fun HomeSectionPreview() {
     RideAppTheme {
-        ExtrasSection(title = R.string.Extra) {
+        ExtrasSection {
             ExtrasRow()
 
         }

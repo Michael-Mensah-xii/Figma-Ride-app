@@ -15,5 +15,6 @@
     <string name="Today_string" >Today</string>
     <string name="Extendedbt" >Available dates</string>
     <string name="Tommorow_string" >Tommorow</string>
-    <string name="calender_string" />
+    <string name="calender_string" >Other</string>
+    <string name="Date_string" >22nd</string>
 </resources>

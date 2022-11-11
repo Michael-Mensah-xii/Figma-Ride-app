@@ -163,7 +163,7 @@ fun ExtendedButton() {
 
     Box(
         modifier = Modifier
-            .height(97.dp)
+            .height(87.dp)
             .widthIn(322.dp)
             .background(Color.Transparent)
             .alpha(1f)
@@ -184,9 +184,7 @@ fun ExtendedButton() {
             )
 
             Row(
-                modifier = Modifier
-                    .weight(1f)
-                    .wrapContentWidth(),
+                modifier = Modifier.padding(end = 26.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
 
@@ -402,7 +400,6 @@ fun AppHeader() {
                 )
 
 
-
             }
 
             TextField(
@@ -579,7 +576,6 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     Column(
         modifier
             .padding(horizontal = 0.dp, vertical = 0.dp)
-            .fillMaxWidth()
             .verticalScroll(rememberScrollState())
     ) {
         AppHeader()

@@ -17,4 +17,8 @@
     <string name="Tommorow_string" >Tommorow</string>
     <string name="calender_string" >Other</string>
     <string name="Date_string" >22nd</string>
+    <string name="Other">Other</string>
+    <string name="twentysecond">22nd</string>
+    <string name="Tomorrow">Tomorrow</string>
+    <string name="Today">Today</string>
 </resources>

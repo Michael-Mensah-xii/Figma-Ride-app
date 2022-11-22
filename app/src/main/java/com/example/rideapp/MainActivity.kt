@@ -182,7 +182,6 @@ fun ExtendedButton() {
             val dateList = listOf("Today", "Tomorrow", "22nd", "Other")
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
-                contentPadding = PaddingValues(horizontal = 6.dp),
                 modifier = Modifier
                     .padding(end = 26.dp)
             ) {
@@ -283,7 +282,8 @@ fun OddButton() {
 
                 Row(horizontalArrangement = Arrangement.spacedBy(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier) {
+                    modifier = Modifier
+                ) {
                     Icon(
                         modifier =
                         Modifier
@@ -317,15 +317,6 @@ fun OddButton() {
 
             }
 
-
-            /*Image(
-                painter = painterResource(id = R.drawable.light),
-                contentDescription = "plus and minus toggle",
-                modifier = Modifier
-                    .widthIn(104.dp)
-                    .heightIn(32.dp)
-                    .clip(RoundedCornerShape(10.dp))
-            )*/
         }
     }
 

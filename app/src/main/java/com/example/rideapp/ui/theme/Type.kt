@@ -2,9 +2,13 @@ package com.example.rideapp.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontWeight.Companion.W700
+import androidx.compose.ui.text.font.FontWeight.Companion.W900
 import androidx.compose.ui.unit.sp
+import com.example.rideapp.R
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -13,6 +17,9 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     )
+
+
+
     /* Other default text styles to override
     button = TextStyle(
         fontFamily = FontFamily.Default,
@@ -25,4 +32,44 @@ val Typography = Typography(
         fontSize = 12.sp
     )
     */
+)
+
+private val fontFamilySatoshi = FontFamily(
+    listOf(
+        Font(
+            resId = R.font.satoshi_regular
+        ),
+        Font(
+            resId = R.font.satoshi_medium,
+            weight = FontWeight.Normal
+        )
+    )
+)
+
+val SatoshiTypography = Typography(
+    body1 = TextStyle(
+        fontFamily = fontFamilySatoshi,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp
+    ),
+
+    h1 = TextStyle(
+        fontFamily = fontFamilySatoshi,
+        fontWeight = W900,
+        fontSize = 24.sp,
+        letterSpacing = (0).sp
+    ),
+
+    body2 = TextStyle(
+        fontSize = 16.sp,
+        fontWeight = W700,
+        letterSpacing = 0.sp
+    ),
+    caption = TextStyle(
+        fontFamily = fontFamilySatoshi,
+        fontSize = 10.sp,
+        fontWeight = FontWeight.Normal,
+        lineHeight = 14.sp
+
+    ),
 )

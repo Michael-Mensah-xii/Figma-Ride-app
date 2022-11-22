@@ -35,10 +35,17 @@ fun RideAppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composabl
         LightColorPalette
     }
 
-    MaterialTheme(
+    /*MaterialTheme(
         colors = colors,
         typography = Typography,
         shapes = Shapes,
         content = content
+    ) */
+    MaterialTheme(
+        colors = colors,
+        typography = SatoshiTypography,
+        shapes = Shapes,
+        content = content
     )
+
 }

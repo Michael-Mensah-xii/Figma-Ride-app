@@ -37,10 +37,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.example.rideapp.ui.theme.Buttonc
-import com.example.rideapp.ui.theme.Green200
-import com.example.rideapp.ui.theme.Green500
-import com.example.rideapp.ui.theme.RideAppTheme
+import com.example.rideapp.ui.theme.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -339,21 +336,10 @@ fun AppHeader() {
                         .weight(1f),
                     fontSize = 24.sp,
                     text = "Hi Kojo,",
-                    style = MaterialTheme.typography.h4,
+                    style = SatoshiTypography.h1,
                     color = Color.White,
                 )
                 Spacer(modifier = Modifier.padding(horizontal = 40.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.profile_image),
-                    contentDescription = "profile image",
-                    modifier = Modifier
-                        .padding(top = 58.dp, end = 72.dp)
-                        //set image size to 40dp
-                        .size(40.dp)
-                        //shape image as circle
-                        .clip(CircleShape)
-
-                )
 
 
             }
@@ -364,8 +350,10 @@ fun AppHeader() {
                 placeholder = {
                     Text(
                         stringResource(R.string.placeholder_firsttextbox),
-                        color = Color.White.copy(alpha = 0.5f)
-                    )
+                        color = Color.White.copy(alpha = 0.21f),
+                        style = SatoshiTypography.body2,
+
+                        )
                 },
                 modifier = Modifier
 
@@ -398,7 +386,8 @@ fun AppHeader() {
                 placeholder = {
                     Text(
                         stringResource(R.string.placeholder_secondtextbox),
-                        color = Color.White.copy(alpha = 0.5f)
+                        color = Color.White.copy(alpha = 0.21f),
+                        style = SatoshiTypography.body2,
                     )
                 },
                 modifier = Modifier
@@ -427,6 +416,20 @@ fun AppHeader() {
             )
 
         }
+        //Profile picture
+        Image(
+            painter = painterResource(id = R.drawable.profile_image),
+            contentDescription = "profile image",
+            modifier = Modifier
+                .padding(start = 296.dp, top = 58.dp, end = 16.dp)
+                //set image size to 40dp
+                .size(40.dp)
+                //shape image as circle
+                .clip(CircleShape)
+
+        )
+
+
         //Floating action button
         FloatingActionButton(
             onClick = {},
@@ -458,11 +461,12 @@ private fun MyBottomNavigation(modifier: Modifier = Modifier) {
         //.padding( 40.dp,12.dp,40.dp,0.dp)
         backgroundColor = MaterialTheme.colors.background,
 
+
         ) {
         BottomNavigationItem(modifier = Modifier.padding(bottom = 24.dp, top = 2.23.dp),
             selected = true,
             onClick = { /*TODO*/ },
-            label = { Text(stringResource(id = R.string.Home)) },
+            label = { Text(stringResource(id = R.string.Home), style = SatoshiTypography.caption) },
             icon = {
                 Icon(
                     painter = painterResource(id = R.drawable.home),
@@ -473,7 +477,12 @@ private fun MyBottomNavigation(modifier: Modifier = Modifier) {
         BottomNavigationItem(modifier = Modifier.padding(bottom = 24.dp, top = 2.23.dp),
             selected = true,
             onClick = { /*TODO*/ },
-            label = { Text(stringResource(id = R.string.Tickets)) },
+            label = {
+                Text(
+                    stringResource(id = R.string.Tickets),
+                    style = SatoshiTypography.caption,
+                )
+            },
             icon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ticket),
@@ -485,7 +494,10 @@ private fun MyBottomNavigation(modifier: Modifier = Modifier) {
         BottomNavigationItem(modifier = Modifier.padding(bottom = 24.dp, top = 2.23.dp),
             selected = true,
             onClick = { /*TODO*/ },
-            label = { Text(stringResource(id = R.string.Users)) },
+            label = {
+                Text(stringResource(id = R.string.Users),
+                    style = SatoshiTypography.caption)
+            },
             icon = {
                 Icon(
                     painter = painterResource(id = R.drawable.users),
@@ -496,7 +508,12 @@ private fun MyBottomNavigation(modifier: Modifier = Modifier) {
         BottomNavigationItem(modifier = Modifier.padding(bottom = 24.dp, top = 2.23.dp),
             selected = true,
             onClick = { /*TODO*/ },
-            label = { Text(stringResource(id = R.string.Settings)) },
+            label = {
+                Text(
+                    stringResource(id = R.string.Settings),
+                    style = SatoshiTypography.caption,
+                )
+            },
             icon = {
                 Icon(
                     painter = painterResource(id = R.drawable.settings),

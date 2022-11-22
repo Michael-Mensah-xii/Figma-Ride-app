@@ -16,6 +16,7 @@ import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -270,14 +271,61 @@ fun OddButton() {
                 text = text,
             )
 
-            Image(
+
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(4.dp))
+                    .height(32.dp)
+                    .widthIn(104.dp)
+                    .background(Grey100)
+                    .padding(4.dp),
+            ) {
+
+                Row(horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier) {
+                    Icon(
+                        modifier =
+                        Modifier
+                            .height(20.dp)
+                            .widthIn(20.dp)
+                            .padding(start = 8.dp),
+                        painter = painterResource(id = R.drawable.minimize),
+                        contentDescription = stringResource(R.string.text_add_icon),
+                        tint = Color.Black
+                    )
+
+                    Divider(
+                        color = Color.Gray,
+                        modifier = Modifier
+                            .height(16.dp) //fill the max height
+                            .width(1.dp)
+                    )
+
+
+                    Icon(
+                        modifier = Modifier
+                            .height(20.dp)
+                            .widthIn(14.dp)
+                            .padding(end = 8.dp),
+                        imageVector = Icons.Filled.Add,
+                        contentDescription = stringResource(R.string.text_add_icon),
+                        tint = Color.Black
+                    )
+                }
+
+
+            }
+
+
+            /*Image(
                 painter = painterResource(id = R.drawable.light),
                 contentDescription = "plus and minus toggle",
                 modifier = Modifier
                     .widthIn(104.dp)
                     .heightIn(32.dp)
                     .clip(RoundedCornerShape(10.dp))
-            )
+            )*/
         }
     }
 

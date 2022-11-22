@@ -21,4 +21,5 @@
     <string name="twentysecond">22nd</string>
     <string name="Tomorrow">Tomorrow</string>
     <string name="Today">Today</string>
+    <string name="text_add_icon">add</string>
 </resources>

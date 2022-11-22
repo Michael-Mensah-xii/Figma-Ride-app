@@ -6,18 +6,17 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.font.FontWeight.Companion.W700
-import androidx.compose.ui.text.font.FontWeight.Companion.W900
 import androidx.compose.ui.unit.sp
 import com.example.rideapp.R
 
 // Set of Material typography styles to start with
-val Typography = Typography(
+/*val Typography = Typography(
     body1 = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
     )
-
+*/
 
 
     /* Other default text styles to override
@@ -31,8 +30,18 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 12.sp
     )
-    */
+
+)*/
+
+private val satoshi = FontFamily(
+    Font(R.font.satoshi_regular),
+    Font(R.font.satoshi_medium, FontWeight.W500),
+    Font(R.font.satoshi_bold, FontWeight.Bold)
 )
+
+
+val typography = Typography(defaultFontFamily = satoshi)
+
 
 private val fontFamilySatoshi = FontFamily(
     listOf(
@@ -55,7 +64,7 @@ val SatoshiTypography = Typography(
 
     h1 = TextStyle(
         fontFamily = fontFamilySatoshi,
-        fontWeight = W900,
+        fontWeight = FontWeight.ExtraBold,
         fontSize = 24.sp,
         letterSpacing = (0).sp
     ),

@@ -84,8 +84,8 @@ fun ExtrasRow(
     modifier: Modifier = Modifier,
 ) {
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(34.dp), // spaces all items in lazyRow
-        contentPadding = PaddingValues(horizontal = 8.dp),// this parameter ensures that padding is maintained while scrolling without clipping
+        horizontalArrangement = Arrangement.spacedBy(32.dp), // spaces all items in lazyRow
+        contentPadding = PaddingValues(start = 0.dp), // this parameter ensures that padding is maintained while scrolling without clipping
         modifier = modifier,
         content = {
             items(extrasData) { item ->
@@ -123,7 +123,8 @@ fun ExtrasElement(
                     contentScale = ContentScale.FillWidth
                 )
                 .padding(8.dp)
-                .size(34.dp),
+                .size(34.dp)
+                .clickable { },
 
             )
 
@@ -164,7 +165,9 @@ fun ExtendedButton() {
             .background(Color.Transparent)
             .alpha(1f)
             .paddingFromBaseline(top = 286.dp)
-            .padding(start = 27.dp, end = 26.dp)
+            .padding(start = 27.dp, end = 26.dp),
+        contentAlignment = Alignment.CenterStart,
+
     ) {
         Column(
             modifier = Modifier
@@ -181,9 +184,11 @@ fun ExtendedButton() {
 
             val dateList = listOf("Today", "Tomorrow", "22nd", "Other")
             LazyRow(
+                contentPadding = PaddingValues(start = 0.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier
                     .padding(end = 26.dp)
+                    .fillMaxWidth(),
             ) {
                 items(dateList.size) { item ->
                     Box(
@@ -193,7 +198,19 @@ fun ExtendedButton() {
                                 width = 0.dp,
                                 shape = RoundedCornerShape(24.dp)
                             )
+                            .clickable { }
+
                     ) {
+                        if (item == 3) Icon(
+                            painter = painterResource(id = R.drawable.calender),
+                            contentDescription = "calender Icon",
+                            Modifier
+                                .padding(start = 4.dp)
+                                .size(14.dp)
+                                .align(Alignment.CenterStart)
+                            ,
+
+                            )
                         Text(
                             modifier = Modifier
                                 .padding(
@@ -201,7 +218,8 @@ fun ExtendedButton() {
                                     end = 16.dp,
                                     top = 8.dp,
                                     bottom = 8.dp
-                                ),
+                                ).padding(horizontal = 2.dp)
+                            ,
                             fontSize = 12.sp,
                             text = dateList[item],
                             color = if (item == 0) Green500 else Color.Black,
@@ -289,7 +307,8 @@ fun OddButton() {
                         Modifier
                             .height(20.dp)
                             .widthIn(20.dp)
-                            .padding(start = 8.dp),
+                            .padding(start = 8.dp)
+                            .clickable { },
                         painter = painterResource(id = R.drawable.minimize),
                         contentDescription = stringResource(R.string.text_add_icon),
                         tint = Color.Black
@@ -307,7 +326,8 @@ fun OddButton() {
                         modifier = Modifier
                             .height(20.dp)
                             .widthIn(14.dp)
-                            .padding(end = 8.dp),
+                            .padding(end = 8.dp)
+                            .clickable { },
                         imageVector = Icons.Filled.Add,
                         contentDescription = stringResource(R.string.text_add_icon),
                         tint = Color.Black

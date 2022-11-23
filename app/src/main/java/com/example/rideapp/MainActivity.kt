@@ -117,6 +117,7 @@ fun ExtrasElement(
             modifier = Modifier
                 .heightIn(34.dp)
                 .widthIn(34.dp)
+                .clip(RoundedCornerShape(8.dp))
                 //sets the image composable background (faded look)
                 .paint(
                     painter = painterResource(R.drawable.rectangle_4),

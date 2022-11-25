@@ -169,7 +169,7 @@ fun ExtendedButton() {
             .padding(start = 27.dp, end = 26.dp),
         contentAlignment = Alignment.CenterStart,
 
-    ) {
+        ) {
         Column(
             modifier = Modifier
                 .fillMaxSize(),
@@ -208,8 +208,7 @@ fun ExtendedButton() {
                             Modifier
                                 .padding(start = 4.dp)
                                 .size(14.dp)
-                                .align(Alignment.CenterStart)
-                            ,
+                                .align(Alignment.CenterStart),
 
                             )
                         Text(
@@ -219,8 +218,8 @@ fun ExtendedButton() {
                                     end = 16.dp,
                                     top = 8.dp,
                                     bottom = 8.dp
-                                ).padding(horizontal = 2.dp)
-                            ,
+                                )
+                                .padding(horizontal = 2.dp),
                             fontSize = 12.sp,
                             text = dateList[item],
                             color = if (item == 0) Green500 else Color.Black,
@@ -511,76 +510,35 @@ fun AppHeader() {
 
 //Bottom navigation
 @Composable
-private fun MyBottomNavigation(modifier: Modifier = Modifier) {
-
-
+fun BottomNavigationBar() {
+    val items = listOf(
+        NavigationItem.Home,
+        NavigationItem.Tickets,
+        NavigationItem.Referral,
+        NavigationItem.Settings,
+    )
     BottomNavigation(
-        modifier = modifier
-            .widthIn(375.dp)
-            .heightIn(100.dp),
-        //.padding( 40.dp,12.dp,40.dp,0.dp)
         backgroundColor = MaterialTheme.colors.background,
+        contentColor = Color.Black,
+        modifier = Modifier
+            .widthIn(375.dp)
+            .heightIn(100.dp)
+    ) {
+        items.forEach { item ->
+            BottomNavigationItem(
+                modifier = Modifier.padding(bottom = 32.dp, top = 14.5.dp),
+                icon = { Icon(painterResource(id = item.icon), contentDescription = item.title) },
+                label = { Text(text = item.title) },
+                selectedContentColor = Green500,
+                unselectedContentColor = Color.Black.copy(0.5f),
+                alwaysShowLabel = true,
+                selected = false,
+                onClick = {
+                    /* Add code later */
+                },
 
-
-        ) {
-        BottomNavigationItem(modifier = Modifier.padding(bottom = 24.dp, top = 2.23.dp),
-            selected = true,
-            onClick = { /*TODO*/ },
-            label = { Text(stringResource(id = R.string.Home), style = SatoshiTypography.caption) },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.home),
-                    contentDescription = null
                 )
-            }
-        )
-        BottomNavigationItem(modifier = Modifier.padding(bottom = 24.dp, top = 2.23.dp),
-            selected = true,
-            onClick = { /*TODO*/ },
-            label = {
-                Text(
-                    stringResource(id = R.string.Tickets),
-                    style = SatoshiTypography.caption,
-                )
-            },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.ticket),
-                    contentDescription = null,
-
-                    )
-            }
-        )
-        BottomNavigationItem(modifier = Modifier.padding(bottom = 24.dp, top = 2.23.dp),
-            selected = true,
-            onClick = { /*TODO*/ },
-            label = {
-                Text(stringResource(id = R.string.Users),
-                    style = SatoshiTypography.caption)
-            },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.users),
-                    contentDescription = null
-                )
-            }
-        )
-        BottomNavigationItem(modifier = Modifier.padding(bottom = 24.dp, top = 2.23.dp),
-            selected = true,
-            onClick = { /*TODO*/ },
-            label = {
-                Text(
-                    stringResource(id = R.string.Settings),
-                    style = SatoshiTypography.caption,
-                )
-            },
-            icon = {
-                Icon(
-                    painter = painterResource(id = R.drawable.settings),
-                    contentDescription = null
-                )
-            }
-        )
+        }
     }
 }
 
@@ -613,7 +571,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 fun RideApp() {
     RideAppTheme {
         Scaffold(
-            bottomBar = { MyBottomNavigation() }
+            bottomBar = { BottomNavigationBar() }
         ) { padding ->
             HomeScreen(Modifier.padding(padding))
         }
@@ -693,7 +651,7 @@ fun AppHeaderPreview() {
 @Preview
 @Composable
 fun BottomNavigationPreview() {
-    RideAppTheme { MyBottomNavigation() }
+    RideAppTheme { BottomNavigationBar() }
 }
 
 @Preview(widthDp = 360, heightDp = 640)

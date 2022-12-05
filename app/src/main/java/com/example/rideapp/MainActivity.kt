@@ -62,7 +62,8 @@ fun ExtrasSection(
 ) {
     Box(
         modifier = Modifier
-            .padding(start = 27.dp, end = 34.dp)
+            .padding(start = 27.dp, end = 46.dp)
+            .padding(horizontal = 16.dp)
     ) {
         Column(modifier) {
             Text(
@@ -166,7 +167,8 @@ fun ExtendedButton() {
             .background(Color.Transparent)
             .alpha(1f)
             .paddingFromBaseline(top = 286.dp)
-            .padding(start = 27.dp, end = 26.dp),
+            .padding(start = 27.dp, end = 27.dp)
+            .padding(horizontal = 16.dp),
         contentAlignment = Alignment.CenterStart,
 
         ) {
@@ -188,7 +190,7 @@ fun ExtendedButton() {
                 contentPadding = PaddingValues(start = 0.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier
-                    .padding(end = 26.dp)
+                    .padding(end = 0.dp)
                     .fillMaxWidth(),
             ) {
                 items(dateList.size) { item ->
@@ -248,6 +250,7 @@ fun OddButton() {
         modifier = Modifier
             .background(MaterialTheme.colors.background)
             .padding(start = 27.dp, end = 35.dp)
+            .padding(horizontal = 16.dp)
 
     ) {
         Row(
@@ -348,6 +351,7 @@ fun OddButton() {
 fun Button(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.padding(start = 31.dp, top = 40.dp, end = 31.dp, bottom = 47.dp)
+            .padding(horizontal = 16.dp)
     ) {
         Button(
             onClick = {},
@@ -373,7 +377,8 @@ fun AppHeader() {
     Box(
         modifier = Modifier
             .widthIn(375.dp)
-            .background(color = Green200),
+            .background(color = Green200)
+            .padding(horizontal = 16.dp),
 
         ) {
         val textState = rememberSaveable { mutableStateOf("") }
@@ -391,7 +396,7 @@ fun AppHeader() {
             ) {
                 Text(
                     modifier = Modifier
-                        .padding(top = 62.dp, start = 8.dp)
+                        .padding(top = 62.dp, start = 16.dp)
                         .weight(1f),
                     fontSize = 24.sp,
                     text = "Hi Kojo,",
@@ -416,7 +421,7 @@ fun AppHeader() {
                 },
                 modifier = Modifier
 
-                    .padding(start = 24.dp, top = 14.dp, bottom = 14.dp)
+                    .padding(start = 31.dp, top = 14.dp, bottom = 14.dp, end = 48.dp)
                     .widthIn(296.dp)
                     .heightIn(min = 50.dp)
                     .clip(
@@ -450,7 +455,7 @@ fun AppHeader() {
                     )
                 },
                 modifier = Modifier
-                    .padding(start = 24.dp, bottom = 14.dp)
+                    .padding(start = 31.dp, bottom = 14.dp, end = 48.dp)
                     .widthIn(296.dp)
                     .heightIn(min = 50.dp)
                     .padding(bottom = 32.dp)
@@ -517,6 +522,7 @@ fun BottomNavigationBar() {
         NavigationItem.Referral,
         NavigationItem.Settings,
     )
+
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.background,
         contentColor = Color.Black,
@@ -526,7 +532,8 @@ fun BottomNavigationBar() {
     ) {
         items.forEach { item ->
             BottomNavigationItem(
-                modifier = Modifier.padding(bottom = 32.dp, top = 14.5.dp),
+                modifier = Modifier.padding(bottom = 32.dp, top = 14.5.dp, start = 16.dp, end = 16.dp)
+                ,
                 icon = { Icon(painterResource(id = item.icon), contentDescription = item.title) },
                 label = { Text(text = item.title) },
                 selectedContentColor = Green500,
@@ -654,7 +661,7 @@ fun BottomNavigationPreview() {
     RideAppTheme { BottomNavigationBar() }
 }
 
-@Preview(widthDp = 360, heightDp = 640)
+@Preview(widthDp = 395, heightDp = 640)
 @Composable
 fun RideAppPreview() {
     RideApp()

@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.RideApp" parent="android:Theme.Material.Light.NoActionBar">
+    <bool name="lightNavEnabled">true</bool>
+
+    <style name="Theme.RideApp" parent="android:Theme.Material.Light.NoActionBar.Fullscreen">
         <item name="android:statusBarColor">@color/status_bar_colour</item>
+
     </style>
     <string name="ride_txt" />
     <color name="status_bar_colour">#F0EAE2</color>

@@ -43,7 +43,6 @@ import com.example.rideapp.ui.theme.*
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         Thread.sleep(1000)
         installSplashScreen()
         setContent {
@@ -57,15 +56,18 @@ class MainActivity : ComponentActivity() {
 // Step: Extrassection
 @Composable
 fun ExtrasSection(
-    modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
     Box(
         modifier = Modifier
-            .padding(start = 27.dp, end = 46.dp)
-            .padding(horizontal = 16.dp)
+            .fillMaxWidth()
     ) {
-        Column(modifier) {
+        Column(
+            modifier = Modifier
+                .heightIn(119.dp)
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+        ) {
             Text(
                 text = stringResource(id = R.string.Extra),
                 style = TextStyle(fontSize = 15.sp),
@@ -82,17 +84,19 @@ fun ExtrasSection(
 //item select row
 @Composable
 fun ExtrasRow(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.fillMaxWidth(),
 ) {
     LazyRow(
-        horizontalArrangement = Arrangement.spacedBy(32.dp), // spaces all items in lazyRow
-        contentPadding = PaddingValues(start = 0.dp), // this parameter ensures that padding is maintained while scrolling without clipping
+        horizontalArrangement = Arrangement.SpaceBetween, // spaces all items in lazyRow
+        contentPadding = PaddingValues(horizontal = 0.dp), // this parameter ensures that padding is maintained while scrolling without clipping
         modifier = modifier,
         content = {
             items(extrasData) { item ->
                 ExtrasElement(
                     drawable = item.drawable,
-                    text = item.text
+                    text = item.text,
+                    price = item.price
+
                 )
             }
         }
@@ -104,10 +108,10 @@ fun ExtrasRow(
 fun ExtrasElement(
     @DrawableRes drawable: Int,
     @StringRes text: Int,
+    price: String,
 ) {
     Column(
         modifier = Modifier,
-        // sets the alignment of the inversions text horizontally
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
@@ -125,7 +129,8 @@ fun ExtrasElement(
                     contentScale = ContentScale.FillWidth
                 )
                 .padding(8.dp)
-                .size(34.dp)
+                .size(50.dp)
+                .clip(RoundedCornerShape(8.dp))
                 .clickable { },
 
             )
@@ -137,22 +142,30 @@ fun ExtrasElement(
                 top = 12.dp, bottom = 2.dp
             )
         )
+
+        Text(
+            text = price,
+            style = TextStyle(fontSize = 10.sp, lineHeight = 14.sp),
+            color = Green500,
+            modifier = Modifier.paddingFromBaseline(
+                top = 2.dp, bottom = 12.dp
+            )
+        )
     }
 
 }
 
+data class ExtrasData(
+    val drawable: Int,
+    val text: Int,
+    val price: String,
+)
 
-//data for extras row
-private val extrasData = listOf(
-    R.drawable.breakfast to R.string.Breakfast,
-    R.drawable.sleeping to R.string.Sleeping,
-    R.drawable.drinks to R.string.Drinks,
-    R.drawable.blanket to R.string.Blanket
-).map { DrawableStringPair(it.first, it.second) }
-
-private data class DrawableStringPair(
-    @DrawableRes val drawable: Int,
-    @StringRes val text: Int,
+val extrasData = listOf(
+    ExtrasData(R.drawable.breakfast, R.string.Breakfast, "GHS 50.00"),
+    ExtrasData(R.drawable.sleeping, R.string.Sleeping, "GHS 100.00"),
+    ExtrasData(R.drawable.drinks, R.string.Drinks, "GHS 40.00"),
+    ExtrasData(R.drawable.blanket, R.string.Blanket, "GHS 92.00"),
 )
 
 
@@ -163,20 +176,18 @@ fun ExtendedButton() {
     Box(
         modifier = Modifier
             .height(87.dp)
-            .widthIn(322.dp)
+            .fillMaxWidth()
             .background(Color.Transparent)
             .alpha(1f)
-            .paddingFromBaseline(top = 286.dp)
-            .padding(start = 27.dp, end = 27.dp)
-            .padding(horizontal = 16.dp),
+            .paddingFromBaseline(top = 286.dp),
         contentAlignment = Alignment.CenterStart,
 
         ) {
         Column(
             modifier = Modifier
-                .fillMaxSize(),
-
-            ) {
+                .fillMaxSize()
+                .padding(horizontal = 16.dp),
+        ) {
             Text(
                 text = stringResource(id = R.string.Extendedbt),
                 style = TextStyle(fontSize = 15.sp),
@@ -187,15 +198,15 @@ fun ExtendedButton() {
 
             val dateList = listOf("Today", "Tomorrow", "22nd", "Other")
             LazyRow(
-                contentPadding = PaddingValues(start = 0.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                contentPadding = PaddingValues(bottom = 0.dp), // this parameter ensures that padding is maintained while scrolling without clipping
                 modifier = Modifier
-                    .padding(end = 0.dp)
                     .fillMaxWidth(),
             ) {
                 items(dateList.size) { item ->
                     Box(
                         modifier = Modifier
+                            .fillMaxWidth()
                             .border(
                                 color = Green500,
                                 width = 0.dp,
@@ -249,23 +260,25 @@ fun OddButton() {
     Box(
         modifier = Modifier
             .background(MaterialTheme.colors.background)
-            .padding(start = 27.dp, end = 35.dp)
-            .padding(horizontal = 16.dp)
+            .fillMaxWidth()
 
     ) {
         Row(
+
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(134.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .widthIn(90.dp)
                 .heightIn(80.dp)
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth()
 
         ) {
             val myId = "inlineContent"
             val text = buildAnnotatedString {
-                append("1 person")
                 // Append a placeholder string "[icon]" and attach an annotation "inlineContent" on it.
                 appendInlineContent(myId, "[icon]")
+                append("1 person")
+
             }
 
             val inlineContent = mapOf(
@@ -279,8 +292,6 @@ fun OddButton() {
 
                             )
                     ) {
-
-
                         Icon(Icons.Filled.Person, "")
                     }
                 )
@@ -349,14 +360,14 @@ fun OddButton() {
 //Button
 @Composable
 fun Button(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier.padding(start = 31.dp, top = 40.dp, end = 31.dp, bottom = 47.dp)
-            .padding(horizontal = 16.dp)
+    Column(modifier = modifier
+        .padding(top = 40.dp, bottom = 47.dp)
+        .padding(horizontal = 16.dp)
     ) {
         Button(
             onClick = {},
             modifier = Modifier
-                .widthIn(313.dp)
+                .fillMaxWidth()
                 .heightIn(49.dp),
 
             colors = (ButtonDefaults.buttonColors(backgroundColor = Buttonc)),
@@ -365,7 +376,9 @@ fun Button(modifier: Modifier = Modifier) {
                 stringResource(R.string.placeholder_button),
                 color = Color.White,
                 fontSize = 14.sp,
-            )
+                style = SatoshiTypography.body2,
+
+                )
         }
     }
 }
@@ -376,27 +389,29 @@ fun Button(modifier: Modifier = Modifier) {
 fun AppHeader() {
     Box(
         modifier = Modifier
-            .widthIn(375.dp)
-            .background(color = Green200)
-            .padding(horizontal = 16.dp),
+            .fillMaxWidth()
+            .background(color = Green200),
 
         ) {
         val textState = rememberSaveable { mutableStateOf("") }
         val textState2 = rememberSaveable { mutableStateOf("") }
 
-        Column()
+        Column(
+            modifier = Modifier
+                .heightIn(119.dp)
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+        )
         {
             Row(
                 modifier = Modifier
-                    .widthIn(296.dp)
+                    .fillMaxWidth()
                     .paddingFromBaseline(top = 62.dp, bottom = 28.dp)
-                    .padding(start = 16.dp)
-
 
             ) {
                 Text(
                     modifier = Modifier
-                        .padding(top = 62.dp, start = 16.dp)
+                        .padding(top = 62.dp)
                         .weight(1f),
                     fontSize = 24.sp,
                     text = "Hi Kojo,",
@@ -421,8 +436,8 @@ fun AppHeader() {
                 },
                 modifier = Modifier
 
-                    .padding(start = 31.dp, top = 14.dp, bottom = 14.dp, end = 48.dp)
-                    .widthIn(296.dp)
+                    .padding(top = 14.dp, bottom = 14.dp, end = 16.dp)
+                    .fillMaxWidth()
                     .heightIn(min = 50.dp)
                     .clip(
                         RoundedCornerShape(
@@ -455,8 +470,8 @@ fun AppHeader() {
                     )
                 },
                 modifier = Modifier
-                    .padding(start = 31.dp, bottom = 14.dp, end = 48.dp)
-                    .widthIn(296.dp)
+                    .padding(bottom = 14.dp, end = 16.dp)
+                    .fillMaxWidth()
                     .heightIn(min = 50.dp)
                     .padding(bottom = 32.dp)
                     .clip(
@@ -481,32 +496,46 @@ fun AppHeader() {
 
         }
         //Profile picture
-        Image(
-            painter = painterResource(id = R.drawable.profile_image),
-            contentDescription = "profile image",
+        Row(
             modifier = Modifier
-                .padding(start = 296.dp, top = 58.dp, end = 16.dp)
-                //set image size to 40dp
-                .size(40.dp)
-                //shape image as circle
-                .clip(CircleShape)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.profile_image),
+                contentDescription = "profile image",
+                modifier = Modifier
+                    .padding(top = 58.dp)
+                    .padding(horizontal = 16.dp)
+                    //set image size to 40dp
+                    .size(40.dp)
+                    //shape image as circle
+                    .clip(CircleShape)
 
-        )
+            )
+        }
 
 
         //Floating action button
-        FloatingActionButton(
-            onClick = {},
-            elevation = FloatingActionButtonDefaults.elevation(20.dp),
-            backgroundColor = Color.White,
+        Row(
             modifier = Modifier
-                .padding(top = 168.dp, bottom = 70.dp, start = 296.dp, end = 16.dp)
-                .size(40.dp, 40.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.up_down_arrow),
-                contentDescription = "bidirectional button"
-            )
+            FloatingActionButton(
+                onClick = {},
+                elevation = FloatingActionButtonDefaults.elevation(20.dp),
+                backgroundColor = Color.White,
+                modifier = Modifier
+                    .padding(top = 168.dp, bottom = 70.dp)
+                    .padding(horizontal = 16.dp)
+                    .size(40.dp, 40.dp)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.up_down_arrow),
+                    contentDescription = "bidirectional button"
+                )
+            }
         }
         /* */
     }
@@ -527,13 +556,11 @@ fun BottomNavigationBar() {
         backgroundColor = MaterialTheme.colors.background,
         contentColor = Color.Black,
         modifier = Modifier
-            .widthIn(375.dp)
             .heightIn(100.dp)
     ) {
         items.forEach { item ->
             BottomNavigationItem(
-                modifier = Modifier.padding(bottom = 32.dp, top = 14.5.dp, start = 16.dp, end = 16.dp)
-                ,
+                modifier = Modifier.padding(bottom = 32.dp, top = 14.5.dp),
                 icon = { Icon(painterResource(id = item.icon), contentDescription = item.title) },
                 label = { Text(text = item.title) },
                 selectedContentColor = Green500,
@@ -637,10 +664,12 @@ fun ExtrasRowPreview() {
 @Preview(showBackground = true)
 @Composable
 fun ExtrasElementPreview() {
+    val item = ExtrasData(R.drawable.blanket, R.string.Blanket, "GHS 92.00")
     RideAppTheme {
         ExtrasElement(
             drawable = R.drawable.blanket,
             text = R.string.Blanket,
+            price = item.price,
 
             )
     }
@@ -661,7 +690,7 @@ fun BottomNavigationPreview() {
     RideAppTheme { BottomNavigationBar() }
 }
 
-@Preview(widthDp = 395, heightDp = 640)
+@Preview(widthDp = 365, heightDp = 640)
 @Composable
 fun RideAppPreview() {
     RideApp()

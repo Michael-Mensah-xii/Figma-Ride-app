@@ -1,4 +1,4 @@
-# Figma-Ride-app
+# Figma-Ride-Share-app
 Ride share app based on figma ui
 
 

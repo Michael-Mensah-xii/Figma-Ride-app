@@ -17,7 +17,6 @@ import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -34,6 +33,7 @@ import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -286,13 +286,13 @@ fun OddButton() {
                     myId,
                     InlineTextContent(
                         Placeholder(
-                            width = 20.sp,
+                            width = 26.sp,
                             height = 20.sp,
                             placeholderVerticalAlign = PlaceholderVerticalAlign.Center,
 
                             )
                     ) {
-                        Icon(Icons.Filled.Person, "")
+                        Icon(painter = painterResource(id = R.drawable.users), "")
                     }
                 )
             )
@@ -300,7 +300,8 @@ fun OddButton() {
             BasicText(
                 inlineContent = inlineContent,
                 text = text,
-            )
+                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight(300) ),
+                )
 
 
             Box(

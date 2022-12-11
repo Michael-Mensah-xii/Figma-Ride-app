@@ -15,4 +15,4 @@ screenshot from figma reference
 # Screenshots
 screenshots of splashscreen and homescreen
 
-<img width="367" alt="Screenshot 2022-12-10 at 20 04 55" src="https://user-images.githubusercontent.com/95852329/206873405-676ed223-674e-48e9-877d-5dedc2e4ee67.png"> <img width="351" alt="Screenshot 2022-12-10 at 20 08 31" src="https://user-images.githubusercontent.com/95852329/206873533-58973507-ccf6-478d-8c08-7d9dc34d3240.png">
+<img width="367" alt="Screenshot 2022-12-10 at 20 04 55" src="https://user-images.githubusercontent.com/95852329/206873405-676ed223-674e-48e9-877d-5dedc2e4ee67.png"> <img width="352" alt="Screenshot 2022-12-11 at 11 48 57" src="https://user-images.githubusercontent.com/95852329/206902016-f72928a3-e609-4975-b401-3d1e18a41f38.png">

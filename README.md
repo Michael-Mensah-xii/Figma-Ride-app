@@ -7,7 +7,7 @@ Install Android Studio on any compatible device
 
 
 # Figma Reference
-screenshot from figma reference
+screenshot of figma reference
 
 <img width="658" alt="Screenshot 2022-12-10 at 20 15 36" src="https://user-images.githubusercontent.com/95852329/206873731-c1631103-b370-46a2-b01c-231d80db8941.png">
 

@@ -300,8 +300,8 @@ fun OddButton() {
             BasicText(
                 inlineContent = inlineContent,
                 text = text,
-                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight(300) ),
-                )
+                style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight(300)),
+            )
 
 
             Box(
@@ -441,12 +441,7 @@ fun AppHeader() {
                     .fillMaxWidth()
                     .heightIn(min = 50.dp)
                     .clip(
-                        RoundedCornerShape(
-                            topStart = 4.dp,
-                            topEnd = 4.dp,
-                            bottomStart = 4.dp,
-                            bottomEnd = 4.dp
-                        )
+                        RoundedCornerShape(4.dp)
                     )
                     .background(
                         Color(
@@ -476,13 +471,7 @@ fun AppHeader() {
                     .heightIn(min = 50.dp)
                     .padding(bottom = 32.dp)
                     .clip(
-                        RoundedCornerShape(
-                            topStart = 4.dp,
-                            topEnd = 4.dp,
-                            bottomStart = 4.dp,
-                            bottomEnd = 4.dp
-                        )
-
+                        RoundedCornerShape(4.dp)
                     )
                     .background(
                         Color(
@@ -696,3 +685,24 @@ fun BottomNavigationPreview() {
 fun RideAppPreview() {
     RideApp()
 }
+
+
+/*val images = listOf(
+    viepagerData(R.drawable.are_you_hungry_, R.string.are_youhungry),
+    viepagerData(R.drawable.find_some_food, R.string.find_somefood),
+    viepagerData(R.drawable.looking_for_something_delicious_to_order_,
+        R.string.looking_forsomethingdeli)
+)
+
+@Composable
+fun ViewPager(data: List<viepagerData>) {
+    // Use a swipeable horizontal carousel to navigate through the data
+    Carousel(data = data) { item ->
+        // For each item, display the image and text
+        Column {
+            Image(item.image)
+            Text(item.text)
+        }
+    }
+}
+*/

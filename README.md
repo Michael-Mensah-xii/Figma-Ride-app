@@ -1,5 +1,5 @@
 # Figma-Ride-Share-app
-Ride share app based on figma ui
+An implementation of a Figma design of a Ride share app
 
 
 # Installation

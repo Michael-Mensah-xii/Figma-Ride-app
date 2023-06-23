@@ -13,6 +13,5 @@ screenshot of figma reference
 
 
 # Screenshots
-screenshots of splashscreen and homescreen
-
-<img width="367" alt="Screenshot 2022-12-10 at 20 04 55" src="https://user-images.githubusercontent.com/95852329/206873405-676ed223-674e-48e9-877d-5dedc2e4ee67.png"> <img width="352" alt="Screenshot 2022-12-11 at 11 48 57" src="https://user-images.githubusercontent.com/95852329/206902016-f72928a3-e609-4975-b401-3d1e18a41f38.png">
+![Screenshot_20230623_002221](https://github.com/Michael-Mensah-xii/Figma-Ride-app/assets/95852329/9a235d4d-cf4e-4621-a97b-690da3ee6f1e)
+![Screenshot_20230623_002046](https://github.com/Michael-Mensah-xii/Figma-Ride-app/assets/95852329/94c49592-2670-40ee-b2fc-6a2dbf13ab34)

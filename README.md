@@ -13,5 +13,5 @@
 
 
 ## Screenshots
-![Screenshot_20230623_002221](https://github.com/Michael-Mensah-xii/Figma-Ride-app/assets/95852329/9a235d4d-cf4e-4621-a97b-690da3ee6f1e)
-![Screenshot_20230623_002046](https://github.com/Michael-Mensah-xii/Figma-Ride-app/assets/95852329/94c49592-2670-40ee-b2fc-6a2dbf13ab34)
+<img alt="Screenshot_20230623_002221" height="720" src="https://github.com/Michael-Mensah-xii/Figma-Ride-app/assets/95852329/9a235d4d-cf4e-4621-a97b-690da3ee6f1e" width="340"/>
+<img alt="Screenshot_20230623_002046" height="720" src="https://github.com/Michael-Mensah-xii/Figma-Ride-app/assets/95852329/94c49592-2670-40ee-b2fc-6a2dbf13ab34" width="340"/>

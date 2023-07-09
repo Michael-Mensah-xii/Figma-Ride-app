@@ -48,8 +48,11 @@ import androidx.compose.material.TextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -94,8 +97,7 @@ fun ExtrasSection(
     content: @Composable () -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = Modifier.fillMaxWidth()
     ) {
         Column(
             modifier = Modifier
@@ -104,11 +106,9 @@ fun ExtrasSection(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = stringResource(id = R.string.Extra),
-                style = TextStyle(fontSize = 15.sp),
+                text = stringResource(id = R.string.Extra), style = TextStyle(fontSize = 15.sp),
                 // add some padding to the top of title and underneath title
-                modifier = Modifier
-                    .padding(vertical = 16.dp) //add some space between title and column
+                modifier = Modifier.padding(vertical = 16.dp) //add some space between title and column
 
             )
             content()
@@ -119,23 +119,18 @@ fun ExtrasSection(
 //item select row
 @Composable
 fun ExtrasRow(
-    modifier: Modifier = Modifier.fillMaxWidth(),
+    modifier: Modifier = Modifier,
 ) {
-    LazyRow(
-        horizontalArrangement = Arrangement.SpaceBetween, // spaces all items in lazyRow
+    LazyRow(horizontalArrangement = Arrangement.SpaceBetween, // spaces all items in lazyRow
         contentPadding = PaddingValues(horizontal = 0.dp), // this parameter ensures that padding is maintained while scrolling without clipping
-        modifier = modifier,
-        content = {
+        modifier = modifier.fillMaxWidth(), content = {
             items(extrasData) { item ->
                 ExtrasElement(
-                    drawable = item.drawable,
-                    text = item.text,
-                    price = item.price
+                    drawable = item.drawable, text = item.text, price = item.price
 
                 )
             }
-        }
-    )
+        })
 }
 
 //Extras
@@ -146,8 +141,7 @@ fun ExtrasElement(
     price: String,
 ) {
     Column(
-        modifier = Modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
             painter = painterResource(id = drawable),
@@ -232,22 +226,22 @@ fun ExtendedButton() {
             )
 
             val dateList = listOf("Today", "Tomorrow", "22nd", "Other")
+            var selected by remember { mutableStateOf(-1) }
             LazyRow(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 contentPadding = PaddingValues(bottom = 0.dp), // this parameter ensures that padding is maintained while scrolling without clipping
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth()
+                // .clickable(onClick = { selected = !selected }, enabled = true),
             ) {
                 items(dateList.size) { item ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .border(
-                                color = Green500,
-                                width = 0.dp,
-                                shape = RoundedCornerShape(24.dp)
-                            )
-                            .clickable { }
+                    Box(modifier = Modifier
+                        .fillMaxWidth()
+                        .border(
+                            color = if (item == selected) Green500 else Color.Transparent,
+                            width = 0.dp,
+                            shape = RoundedCornerShape(24.dp)
+                        )
+                        .clickable { selected = item }
 
                     ) {
                         if (item == 3) Icon(
@@ -262,15 +256,12 @@ fun ExtendedButton() {
                         Text(
                             modifier = Modifier
                                 .padding(
-                                    start = 16.dp,
-                                    end = 16.dp,
-                                    top = 8.dp,
-                                    bottom = 8.dp
+                                    start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp
                                 )
                                 .padding(horizontal = 2.dp),
                             fontSize = 12.sp,
                             text = dateList[item],
-                            color = if (item == 0) Green500 else Color.Black,
+                            color = if (item == selected) Green500 else Color.Black,
 
                             )
                     }
@@ -292,6 +283,9 @@ fun ExtendedButton() {
 @Composable
 fun OddButton() {
 
+    var count by rememberSaveable { mutableStateOf(0) }
+    val result = count
+
     Box(
         modifier = Modifier
             .background(MaterialTheme.colors.background)
@@ -312,24 +306,20 @@ fun OddButton() {
             val text = buildAnnotatedString {
                 // Append a placeholder string "[icon]" and attach an annotation "inlineContent" on it.
                 appendInlineContent(myId, "[icon]")
-                append("1 person")
-
+                if (result == 1) append("$result person") else append("$result people")
             }
 
             val inlineContent = mapOf(
-                Pair(
-                    myId,
-                    InlineTextContent(
-                        Placeholder(
-                            width = 26.sp,
-                            height = 20.sp,
-                            placeholderVerticalAlign = PlaceholderVerticalAlign.Center,
+                Pair(myId, InlineTextContent(
+                    Placeholder(
+                        width = 26.sp,
+                        height = 20.sp,
+                        placeholderVerticalAlign = PlaceholderVerticalAlign.Center,
 
-                            )
-                    ) {
-                        Icon(painter = painterResource(id = R.drawable.users), "")
-                    }
-                )
+                        )
+                ) {
+                    Icon(painter = painterResource(id = R.drawable.users), "")
+                })
             )
 
             BasicText(
@@ -348,25 +338,24 @@ fun OddButton() {
                     .padding(4.dp),
             ) {
 
-                Row(horizontalArrangement = Arrangement.spacedBy(16.dp),
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                 ) {
                     Icon(
-                        modifier =
-                        Modifier
+                        modifier = Modifier
                             .height(20.dp)
                             .widthIn(20.dp)
                             .padding(start = 8.dp)
-                            .clickable { },
+                            .clickable { if (count > 0) count-- },
                         painter = painterResource(id = R.drawable.minimize),
                         contentDescription = stringResource(R.string.text_add_icon),
                         tint = Color.Black
                     )
 
                     Divider(
-                        color = Color.Gray,
-                        modifier = Modifier
+                        color = Color.Gray, modifier = Modifier
                             .height(16.dp) //fill the max height
                             .width(1.dp)
                     )
@@ -377,7 +366,7 @@ fun OddButton() {
                             .height(20.dp)
                             .widthIn(14.dp)
                             .padding(end = 8.dp)
-                            .clickable { },
+                            .clickable { count++ },
                         imageVector = Icons.Filled.Add,
                         contentDescription = stringResource(R.string.text_add_icon),
                         tint = Color.Black
@@ -396,9 +385,10 @@ fun OddButton() {
 //Button
 @Composable
 fun Button(modifier: Modifier = Modifier) {
-    Column(modifier = modifier
-        .padding(top = 40.dp, bottom = 47.dp)
-        .padding(horizontal = 16.dp)
+    Column(
+        modifier = modifier
+            .padding(top = 40.dp, bottom = 47.dp)
+            .padding(horizontal = 16.dp)
     ) {
         Button(
             onClick = {},
@@ -437,8 +427,7 @@ fun AppHeader() {
                 .heightIn(119.dp)
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
-        )
-        {
+        ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -480,10 +469,7 @@ fun AppHeader() {
                     )
                     .background(
                         Color(
-                            red = 0.21131945f,
-                            green = 0.35534722f,
-                            blue = 0.31744516f,
-                            alpha = 1f
+                            red = 0.21131945f, green = 0.35534722f, blue = 0.31744516f, alpha = 1f
                         )
                     )
 
@@ -510,10 +496,7 @@ fun AppHeader() {
                     )
                     .background(
                         Color(
-                            red = 0.21131945f,
-                            green = 0.35534722f,
-                            blue = 0.31744516f,
-                            alpha = 1f
+                            red = 0.21131945f, green = 0.35534722f, blue = 0.31744516f, alpha = 1f
                         )
                     )
 
@@ -522,9 +505,7 @@ fun AppHeader() {
         }
         //Profile picture
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
+            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End
         ) {
             Image(
                 painter = painterResource(id = R.drawable.profile_image),
@@ -543,9 +524,7 @@ fun AppHeader() {
 
         //Floating action button
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
+            modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End
         ) {
             FloatingActionButton(
                 onClick = {},
@@ -561,8 +540,7 @@ fun AppHeader() {
                     contentDescription = "bidirectional button"
                 )
             }
-        }
-        /* */
+        }/* */
     }
 
 }
@@ -577,26 +555,26 @@ fun BottomNavigationBar() {
         NavigationItem.Settings,
     )
 
+    var selected by remember { mutableStateOf(-1) }
+
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.background,
         contentColor = Color.Black,
-        modifier = Modifier
-            .heightIn(100.dp)
+        modifier = Modifier.heightIn(100.dp)
     ) {
-        items.forEach { item ->
+        items.forEachIndexed { index, item ->
             BottomNavigationItem(
                 modifier = Modifier.padding(bottom = 32.dp, top = 14.5.dp),
                 icon = { Icon(painterResource(id = item.icon), contentDescription = item.title) },
                 label = { Text(text = item.title) },
-                selectedContentColor = Green500,
+                selectedContentColor = if (selected == index) Green500 else Color.Transparent,
                 unselectedContentColor = Color.Black.copy(0.5f),
                 alwaysShowLabel = true,
-                selected = false,
+                selected = (selected == index),
                 onClick = {
-                    /* Add code later */
+                    selected = index
                 },
-
-                )
+            )
         }
     }
 }
@@ -629,9 +607,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 @Composable
 fun RideApp() {
     RideAppTheme {
-        Scaffold(
-            bottomBar = { BottomNavigationBar() }
-        ) { padding ->
+        Scaffold(bottomBar = { BottomNavigationBar() }) { padding ->
             HomeScreen(Modifier.padding(padding))
         }
     }

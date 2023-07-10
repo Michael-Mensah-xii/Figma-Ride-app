@@ -37,6 +37,8 @@ import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxDefaults
 import androidx.compose.material.Divider
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.FloatingActionButtonDefaults
@@ -45,6 +47,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
@@ -57,7 +60,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -140,49 +142,56 @@ fun ExtrasElement(
     @StringRes text: Int,
     price: String,
 ) {
+    var isChecked by rememberSaveable { mutableStateOf(false) }
+
     Column(
         modifier = Modifier, horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = painterResource(id = drawable),
-            contentDescription = null,
-
-            contentScale = ContentScale.Crop, //crops image composable
+        Box(
             modifier = Modifier
-                .heightIn(34.dp)
-                .widthIn(34.dp)
-                .clip(RoundedCornerShape(8.dp))
-                //sets the image composable background (faded look)
-                .paint(
-                    painter = painterResource(R.drawable.rectangle_4),
-                    contentScale = ContentScale.FillWidth
-                )
-                .padding(8.dp)
                 .size(50.dp)
                 .clip(RoundedCornerShape(8.dp))
-                .clickable { },
-
+        ) {
+            Image(
+                painter = painterResource(id = drawable),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
             )
+            Row(
+                modifier = Modifier
+                    .width(50.dp)
+                    .padding(top = 1.dp, end = 2.dp),
+                horizontalArrangement = Arrangement.End
+            ) {
+                Checkbox(
+                    checked = isChecked,
+                    onCheckedChange = { isChecked = it },
+                    modifier = Modifier
+                        .size(16.dp)
+                        .clip(RoundedCornerShape(4.dp))
+                        .padding(end = 0.dp),
+                    colors = CheckboxDefaults.colors(Green500)
+                )
+            }
+
+        }
 
         Text(
             text = stringResource(id = text),
             style = TextStyle(fontSize = 10.sp, lineHeight = 14.sp),
-            modifier = Modifier.paddingFromBaseline(
-                top = 12.dp, bottom = 2.dp
-            )
+            modifier = Modifier.paddingFromBaseline(top = 12.dp, bottom = 2.dp)
         )
 
         Text(
             text = price,
             style = TextStyle(fontSize = 10.sp, lineHeight = 14.sp),
             color = Green500,
-            modifier = Modifier.paddingFromBaseline(
-                top = 2.dp, bottom = 12.dp
-            )
+            modifier = Modifier.paddingFromBaseline(top = 2.dp, bottom = 12.dp)
         )
     }
-
 }
+
 
 data class ExtrasData(
     val drawable: Int,
@@ -273,11 +282,6 @@ fun ExtendedButton() {
     }
 }
 
-/*private val dateList = listOf(
-    R.string.Today,
-    R.string.Tomorrow,
-    R.string.twentysecond,
-    R.string.Other)*/
 
 //Odd - + button
 @Composable
@@ -419,8 +423,8 @@ fun AppHeader() {
             .background(color = Green200),
 
         ) {
-        val textState = rememberSaveable { mutableStateOf("") }
-        val textState2 = rememberSaveable { mutableStateOf("") }
+        var locationText by rememberSaveable { mutableStateOf("") }
+        var terminalText by rememberSaveable { mutableStateOf("") }
 
         Column(
             modifier = Modifier
@@ -449,8 +453,9 @@ fun AppHeader() {
             }
 
             TextField(
-                value = textState.value,
-                onValueChange = { textState.value = it },
+                colors = TextFieldDefaults.textFieldColors(Color.White),
+                value = locationText,
+                onValueChange = { locationText = it },
                 placeholder = {
                     Text(
                         stringResource(R.string.placeholder_firsttextbox),
@@ -477,8 +482,9 @@ fun AppHeader() {
             )
 
             TextField(
-                value = textState2.value,
-                onValueChange = { textState2.value = it },
+                colors = TextFieldDefaults.textFieldColors(Color.White),
+                value = terminalText,
+                onValueChange = { terminalText = it },
                 placeholder = {
                     Text(
                         stringResource(R.string.placeholder_secondtextbox),

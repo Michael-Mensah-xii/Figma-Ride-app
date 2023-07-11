@@ -60,6 +60,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -76,6 +77,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.example.rideapp.ui.theme.Buttonc
 import com.example.rideapp.ui.theme.Green200
 import com.example.rideapp.ui.theme.Green500
+import com.example.rideapp.ui.theme.Green500alpha
 import com.example.rideapp.ui.theme.Grey100
 import com.example.rideapp.ui.theme.RideAppTheme
 import com.example.rideapp.ui.theme.SatoshiTypography
@@ -108,7 +110,8 @@ fun ExtrasSection(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = stringResource(id = R.string.Extra), style = TextStyle(fontSize = 15.sp),
+                text = stringResource(id = R.string.Extra),
+                style = TextStyle(fontSize = 15.sp),
                 // add some padding to the top of title and underneath title
                 modifier = Modifier.padding(vertical = 16.dp) //add some space between title and column
 
@@ -149,18 +152,28 @@ fun ExtrasElement(
     ) {
         Box(
             modifier = Modifier
-                .size(50.dp)
+                .size(60.dp)
                 .clip(RoundedCornerShape(8.dp))
         ) {
-            Image(
-                painter = painterResource(id = drawable),
+            Image(painter = painterResource(id = drawable),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
-            )
+                modifier = Modifier
+                    .heightIn(36.dp)
+                    .widthIn(36.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    //sets the image composable background (faded look)
+                    .paint(
+                        painter = painterResource(R.drawable.rectangle_4),
+                        contentScale = ContentScale.FillWidth
+                    )
+                    .padding(8.dp)
+                    .size(50.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable { isChecked = !isChecked })
             Row(
                 modifier = Modifier
-                    .width(50.dp)
+                    .width(60.dp)
                     .padding(top = 1.dp, end = 2.dp),
                 horizontalArrangement = Arrangement.End
             ) {
@@ -240,13 +253,12 @@ fun ExtendedButton() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 contentPadding = PaddingValues(bottom = 0.dp), // this parameter ensures that padding is maintained while scrolling without clipping
                 modifier = Modifier.fillMaxWidth()
-                // .clickable(onClick = { selected = !selected }, enabled = true),
             ) {
                 items(dateList.size) { item ->
                     Box(modifier = Modifier
                         .fillMaxWidth()
                         .border(
-                            color = if (item == selected) Green500 else Color.Transparent,
+                            color = if (item == selected) Green500 else Green500alpha,
                             width = 0.dp,
                             shape = RoundedCornerShape(24.dp)
                         )
@@ -546,7 +558,7 @@ fun AppHeader() {
                     contentDescription = "bidirectional button"
                 )
             }
-        }/* */
+        }
     }
 
 }
